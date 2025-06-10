@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="esfe.FormInicioSesion">
+  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="8" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="56" y="60" width="389" height="261"/>
+    </constraints>
+    <properties>
+      <background color="-2580113"/>
+      <font name="Book Antiqua" size="26" style="1"/>
+      <foreground color="-589846"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="44050" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-589846"/>
+          <font name="Book Antiqua" size="26" style="1"/>
+          <foreground color="-589846"/>
+          <text value="INICIAR ASESION"/>
+        </properties>
+      </component>
+      <component id="843b8" class="javax.swing.JButton" binding="iniciarSesiónButton" default-binding="true">
+        <constraints>
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-4950"/>
+          <text value="Iniciar Sesión"/>
+        </properties>
+      </component>
+      <component id="771d3" class="javax.swing.JFormattedTextField" binding="formattedTextField1" default-binding="true">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-4950"/>
+        </properties>
+      </component>
+      <component id="fef08" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-16316665"/>
+          <text value="CONTRASEÑA"/>
+        </properties>
+      </component>
+      <component id="4f34e" class="javax.swing.JButton" binding="registrarseButton" default-binding="true">
+        <constraints>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-4950"/>
+          <text value="Registrarse"/>
+        </properties>
+      </component>
+      <component id="ebcd" class="javax.swing.JFormattedTextField" binding="formattedTextField2" default-binding="true">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-4950"/>
+        </properties>
+      </component>
+      <component id="14865" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-16316665"/>
+          <text value="NOMBRE"/>
+        </properties>
+      </component>
+      <vspacer id="e829a">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+    </children>
+  </grid>
+</form>
