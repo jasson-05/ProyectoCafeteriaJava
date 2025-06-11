@@ -15,6 +15,6 @@ public class Main {
         }
 
         // Ivan Rosa Sandoval estuvo aqui ;)
-        // Emily Clono el proyecto dddd.
+        // Emily Clono el proyecto.
     }
 }
