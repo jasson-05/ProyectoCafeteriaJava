@@ -217,7 +217,7 @@ class VentaDAOTest {
                 5001,
                 99.99,
                 "Cliente Específico",
-                "PENDIENTE",
+                "CREADO",
                 LocalDateTime.of(2025, 7, 15, 10, 30)
         );
         Venta res = ventaDAO.create(venta);

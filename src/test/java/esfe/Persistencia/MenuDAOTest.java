@@ -85,7 +85,7 @@ class MenuDAOTest {
         int num = random.nextInt(1000) + 1;
         String nombre = "ProductoTest" + num;
         float precio = 5.99f + random.nextFloat();
-        String categoria = "Bebida";
+        String categoria = "Postre";
         String tipo = "Fría";
 
         Menu menu = new Menu(0, nombre, precio, categoria, tipo);
@@ -98,7 +98,7 @@ class MenuDAOTest {
 
     @Test
     void createMenu() throws SQLException {
-        Menu menu = new Menu(0, "Hamburguesa", 4.50f, "Comida", "Rápida");
+        Menu menu = new Menu(0, "vino", 4.50f, "bebida", "Rápida");
         Menu res = menuDAO.create(menu);
         assertNotNull(res, "El menú no debería ser nulo al ser creado.");
     }
