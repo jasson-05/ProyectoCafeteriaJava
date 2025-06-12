@@ -23,11 +23,10 @@ CREATE TABLE menuss(
 GO
 
 CREATE TABLE vent(
-	idventa int IDENTITY(1,1) NOT NULL,
-	idprod int NULL,
-	precio float NULL,
-	correo nvarchar(50) NULL,
+	idventa int primary key IDENTITY(1,1) NOT NULL,
+	nomProduct int NULL,
+	precioProduct float NULL,
+	nombreClient VARCHAR(100) NULL,
 	estado nchar(10) NULL,
-	fecha datetime2 NULL
-)
-GO
+	fecha datetime NULL
+) ;
