@@ -17,12 +17,12 @@ public class ConnectionManager {
      * - user=dev : Nombre de usuario para la autenticación.
      * - password=dev : Contraseña para la autenticación.
      */
-    private static final String STR_CONNECTION = "jdbc:sqlserver://DESKTOP-V1IC9F7\\SQLEXPRESS;" +
+    private static final String STR_CONNECTION = "jdbc:sqlserver://DESKTOP-97AP7FC:1433;" +
             "encrypt=true;" +
             "database=Cafeteria_BD;" +
             "trustServerCertificate=true;" +
-            "user=Java2025;" +
-            "password=123456789;";
+            "user=java2025;" +
+            "password=12345;";
     /**
      * Representa la conexión activa a la base de datos. Inicialmente es nula.
      */
