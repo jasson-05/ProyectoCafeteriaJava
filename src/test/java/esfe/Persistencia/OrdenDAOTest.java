@@ -28,7 +28,7 @@ class OrdenDAOTest {
     @Test
     void testCRUD() throws SQLException {
         // Crear
-        orden order = new orden(0, 1, 12.0, LocalDateTime.now());
+        orden order = new orden(0, 1, 13.0, LocalDateTime.now());
         orden created = orderDAO.create(order);
         assertNotNull(created);
         assertTrue(created.getId() > 0);
