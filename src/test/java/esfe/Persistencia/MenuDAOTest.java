@@ -98,7 +98,7 @@ class MenuDAOTest {
 
     @Test
     void createMenu() throws SQLException {
-        Menu menu = new Menu(0, "te", 4.50f, "bebida", "Rápida");
+        Menu menu = new Menu(0, "cafe", 4.50f, "bebida", "Rápida");
         Menu res = menuDAO.create(menu);
         assertNotNull(res, "El menú no debería ser nulo al ser creado.");
     }
