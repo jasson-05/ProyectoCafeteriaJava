@@ -11,29 +11,29 @@ import java.util.ArrayList;
 
 public class CafeteriaSistema {
     private JTabbedPane tabbedPane1;
-    private JPanel panel1; // Este es tu panel principal, ya lo vincula el .form
-    private JPanel Usuario; // Panel dentro del tabbedPane, vinculado por .form
-    private JPanel Orden;
-    private JPanel Venta;
+    private JPanel panel1; // Ivan
+    private JPanel Usuario; // Ivan
+    private JPanel Orden; // Ivan
+    private JPanel Venta; // Ivan
     private JPanel Empleados;
-    private JTextField textField1; // Campo para Nombre
-    private JTextField textField2; // Campo para Precio
-    private JTextField textField3; // Campo para Categoria
-    private JTextField textField4; // Campo para Tipo
-    private JLabel Titulo; // "Cup of Coffee", vinculado por .form
-    private JButton crearButton; // Botón "Crear", vinculado por .form
-    private JButton modificarButton; // Botón "Modificar", vinculado por .form
-    private JButton eliminarButton; // Botón "Eliminar", vinculado por .form
-    private JButton buscarButton; // Botón "Buscar", vinculado por .form
-    private JTable table1; // Tu tabla, vinculada por .form
-    private JLabel NuevoP; // "Nuevo Producto", vinculado por .form
-    private JPanel Nombre; // JPanel "Nombre" (posiblemente un contenedor), vinculado por .form
-    private JLabel Precio; // JLabel "Precio", vinculado por .form
-    private JLabel Categoria; // JLabel "Categoria", vinculado por .form
-    private JLabel Tipo; // JLabel "Tipo", vinculado por .form
-    private JPanel JPanel; // Este JPanel tiene un nombre genérico "JPanel", vinculado por .form
-    private JLabel menu; // JLabel "Nuestro Menu", vinculado por .form
-    private JTextField textField5; // Campo para Buscar
+    private JTextField textField1; // Ivan
+    private JTextField textField2; // Ivan
+    private JTextField textField3; // Ivan
+    private JTextField textField4; // Ivan
+    private JLabel Titulo; // Ivan
+    private JButton crearButton; // Ivan
+    private JButton modificarButton; // Ivan
+    private JButton eliminarButton; // Ivan
+    private JButton buscarButton; // Ivan
+    private JTable table1; // Ivan
+    private JLabel NuevoP; // Ivan
+    private JPanel Nombre; // Ivan
+    private JLabel Precio; // Ivan
+    private JLabel Categoria; // Ivan
+    private JLabel Tipo; // Ivan
+    private JPanel JPanel; // Ivan
+    private JLabel menu; // Ivan
+    private JTextField textField5; // Ivan
 
     // No necesitas inicializar manualmente los componentes aquí si usas un diseñador de UI
     // El diseñador lo hace a través de código generado (ej. $$$setupUI$$$())
