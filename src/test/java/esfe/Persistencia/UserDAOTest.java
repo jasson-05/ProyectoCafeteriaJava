@@ -181,7 +181,7 @@ class UserDAOTest {
     }
     @Test
     void createUser() throws SQLException {
-        User user = new User(0, "julio", "123456", "julio@gmail.com", (byte) 1);
+        User user = new User(0, "Carlo", "123456", "Carlo@gmail.com", (byte) 1);
         User res = userDAO.create(user);
         assertNotEquals(res,null);
     }
