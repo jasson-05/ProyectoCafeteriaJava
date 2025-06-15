@@ -9,6 +9,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+//Emily
+import java.time.LocalDateTime;
+import esfe.dominio.orden;
+import esfe.Persistencia.OrdenDAO;
+import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.List;
+// hasta aqui
 public class CafeteriaSistema {
     private JTabbedPane tabbedPane1;
     private JPanel panel1; // Ivan
@@ -35,6 +43,26 @@ public class CafeteriaSistema {
     private JLabel menu; // Ivan
     private JTextField textField5; // Ivan
 
+    // Ocupados por Emily en el formulario de Orden
+    private JFormattedTextField OtxtNumorden;
+    private JFormattedTextField OtxtUserid;
+    private JFormattedTextField OtxtFecha;
+    private JFormattedTextField Otxttotal;
+    private JButton ObtnGuardar;
+    private JButton ObtnActualizar;
+    private JButton ObtnEliminar;
+    private JTable OTblaOrden;
+    private DefaultTableModel tableModel;
+    private JButton ObtnActualizarOrdenes;
+    private JLabel OlabelNumorden;
+    private JLabel OlabelUserid;
+    private JLabel OlabelFecha;
+    private JLabel Olabeltotal;
+    private JLabel OlabelHist;
+    private JLabel OlaelTitulo;
+    private OrdenDAO ordenDAO;
+// Hatas aqui de Emily
+
     // No necesitas inicializar manualmente los componentes aquí si usas un diseñador de UI
     // El diseñador lo hace a través de código generado (ej. $$$setupUI$$$())
 
@@ -45,6 +73,13 @@ public class CafeteriaSistema {
         // por el código generado del diseñador de UI cuando se llegue a este constructor.
 
         cargarMenus(""); // Cargar todos los menús al inicio
+
+        //Form de Emily
+        ordenDAO = new OrdenDAO();
+        initTable();
+        initListeners();
+        OtxtFecha.setText(LocalDateTime.now().toString());
+        // Hasta aqui
 
         // --- Event Listeners ---
 
@@ -191,8 +226,10 @@ public class CafeteriaSistema {
         // y nombrarlo 'limpiarButton'.
     }
 
+
     /**
      * Carga los elementos del menú en la tabla, opcionalmente filtrados por un término de búsqueda.
+     *
      * @param filter El término de búsqueda. Una cadena vacía ("") carga todos los menús.
      */
     private void cargarMenus(String filter) {
@@ -245,6 +282,7 @@ public class CafeteriaSistema {
 
     /**
      * Muestra un mensaje de error al usuario y imprime la traza de la pila para depuración.
+     *
      * @param e La excepción que ocurrió.
      */
     private void mostrarError(Exception e) {
@@ -254,6 +292,7 @@ public class CafeteriaSistema {
 
     /**
      * Retorna el panel principal de la aplicación, el cual es cargado por el diseñador de UI.
+     *
      * @return El JPanel principal.
      */
     public JPanel getMainPanel() {
@@ -272,5 +311,89 @@ public class CafeteriaSistema {
             frame.setLocationRelativeTo(null); // Centra la ventana en la pantalla
             frame.setVisible(true);
         });
+    }
+
+    // -------- CODIGO DE EMILY ---------
+    private void initTable() {
+        tableModel = new DefaultTableModel(new String[]{"ID", "UserID", "Total", "Fecha"}, 0);
+        OTblaOrden.setModel(tableModel);
+    }
+
+    private void initListeners() {
+        ObtnActualizarOrdenes.addActionListener(e -> cargarDatos());
+
+        ObtnGuardar.addActionListener(e -> {
+            try {
+                orden nueva = new orden();
+                nueva.setUserId(Integer.parseInt(OtxtUserid.getText()));
+                nueva.setTotalAmount(Double.parseDouble(Otxttotal.getText()));
+                nueva.setOrderDate(LocalDateTime.now());
+                ordenDAO.create(nueva);
+                cargarDatos();
+                limpiarCampos();
+            } catch (Exception ex) {
+                mostrarError(ex);
+            }
+        });
+        ObtnActualizar.addActionListener(e -> {
+            try {
+                orden o = new orden(
+                        Integer.parseInt(OtxtNumorden.getText()),
+                        Integer.parseInt(OtxtUserid.getText()),
+                        Double.parseDouble(Otxttotal.getText()),
+                        LocalDateTime.parse(OtxtFecha.getText())
+                );
+                ordenDAO.update(o);
+                cargarDatos();
+                limpiarCampos();
+            } catch (Exception ex) {
+                mostrarError(ex);
+            }
+        });
+
+        ObtnEliminar.addActionListener(e -> {
+            try {
+                int id = Integer.parseInt(OtxtNumorden.getText());
+                ordenDAO.delete(id);
+                cargarDatos();
+                limpiarCampos();
+            } catch (Exception ex) {
+                mostrarError(ex);
+            }
+        });
+
+        OTblaOrden.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int fila = OTblaOrden.getSelectedRow();
+                OtxtNumorden.setText(tableModel.getValueAt(fila, 0).toString());
+                OtxtUserid.setText(tableModel.getValueAt(fila, 1).toString());
+                Otxttotal.setText(tableModel.getValueAt(fila, 2).toString());
+                OtxtFecha.setText(tableModel.getValueAt(fila, 3).toString());
+            }
+        });
+    }
+
+    private void cargarDatos() {
+        try {
+            tableModel.setRowCount(0);
+            List<orden> ordenes = ordenDAO.getAll();
+            for (orden o : ordenes) {
+                tableModel.addRow(new Object[]{
+                        o.getId(),
+                        o.getUserId(),
+                        o.getTotalAmount(),
+                        o.getOrderDate()
+                });
+            }
+        } catch (SQLException e) {
+            mostrarError(e);
+        }
+    }
+
+    private void limpiarCamposO() {
+        OtxtNumorden.setText("");
+        OtxtUserid.setText("");
+        Otxttotal.setText("");
+        OtxtFecha.setText("");
     }
 }

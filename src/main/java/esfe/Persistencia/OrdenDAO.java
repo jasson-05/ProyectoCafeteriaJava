@@ -9,12 +9,12 @@ import java.util.List;
 public class OrdenDAO {
 
     // Cadena de conexión a la base de datos SQL Server
-    private static final String STR_CONNECTION = "jdbc:sqlserver://DESKTOP-V1IC9F7\\SQLEXPRESS;" +
+    private static final String STR_CONNECTION = "jdbc:sqlserver://EMYLIS\\SQLEXPRESS;" +
             "encrypt=true;" +
             "database=Cafeteria_BD;" +
             "trustServerCertificate=true;" +
-            "user=Java2025;" +
-            "password=123456789;";
+            "user=java2025;" +
+            "password=12345;";
     /**
     /**
      * Retorna una nueva conexión a la base de datos.
