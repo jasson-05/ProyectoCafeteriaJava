@@ -1,36 +1,45 @@
 package esfe.dominio;
-import java.util.Objects;
 
 /**
- * Clase de dominio que representa un empleado.
- * Esta clase mapea a la tabla 'Employees' en la base de datos SQL Server.
+ * Clase que representa un empleado en el sistema de la cafetería.
+ * Contiene atributos como ID, nombre, posición, salario, número de teléfono y dirección/email.
  */
 public class Employee {
+    private int id; // Identificador único del empleado
+    private String name; // Nombre del empleado
+    private String position; // Cargo o posición del empleado
+    private double salary; // Salario del empleado
+    private String phoneNumber; // Número de teléfono del empleado
+    private String addressEmployees; // Dirección o email del empleado (usado como email en este contexto)
 
-    // Atributos que corresponden a las columnas de la tabla Employees
-    private int id;
-    private String name;
-    private String position;
-    private double salary;
-    private String phoneNumber;
-    private String addressEmployees; // Cambiado de 'addressemployess' para reflejar el nombre de la columna más precisamente
-
-    /**
-     * Constructor por defecto.
-     * Necesario para algunas operaciones de frameworks como ORM.
-     */
+    // Constructor vacío (necesario para algunas operaciones)
     public Employee() {
     }
 
     /**
-     * Constructor con todos los campos.
-     *
-     * @param id El ID único del empleado.
-     * @param name El nombre completo del empleado.
-     * @param position El puesto de trabajo del empleado.
-     * @param salary El salario del empleado.
-     * @param phoneNumber El número de teléfono del empleado.
-     * @param addressEmployees La dirección del empleado.
+     * Constructor para crear un nuevo empleado sin un ID (se asignará automáticamente).
+     * @param name Nombre del empleado.
+     * @param position Posición/cargo del empleado.
+     * @param salary Salario del empleado.
+     * @param phoneNumber Número de teléfono del empleado.
+     * @param addressEmployees Dirección o email del empleado.
+     */
+    public Employee(String name, String position, double salary, String phoneNumber, String addressEmployees) {
+        this.name = name;
+        this.position = position;
+        this.salary = salary;
+        this.phoneNumber = phoneNumber;
+        this.addressEmployees = addressEmployees;
+    }
+
+    /**
+     * Constructor para actualizar o eliminar un empleado existente con un ID.
+     * @param id ID único del empleado.
+     * @param name Nombre del empleado.
+     * @param position Posición/cargo del empleado.
+     * @param salary Salario del empleado.
+     * @param phoneNumber Número de teléfono del empleado.
+     * @param addressEmployees Dirección o email del empleado.
      */
     public Employee(int id, String name, String position, double salary, String phoneNumber, String addressEmployees) {
         this.id = id;
@@ -41,25 +50,7 @@ public class Employee {
         this.addressEmployees = addressEmployees;
     }
 
-    /**
-     * Constructor sin el ID, útil para crear nuevos empleados
-     * antes de que la base de datos asigne un ID (IDENTITY).
-     *
-     * @param name El nombre completo del empleado.
-     * @param position El puesto de trabajo del empleado.
-     * @param salary El salario del empleado.
-     * @param phoneNumber El número de teléfono del empleado.
-     * @param addressEmployees La dirección del empleado.
-     */
-    public Employee(String name, String position, double salary, String phoneNumber, String addressEmployees) {
-        this.name = name;
-        this.position = position;
-        this.salary = salary;
-        this.phoneNumber = phoneNumber;
-        this.addressEmployees = addressEmployees;
-    }
-
-    // --- Getters y Setters para todos los atributos ---
+    // --- Getters y Setters ---
 
     public int getId() {
         return id;
@@ -109,37 +100,6 @@ public class Employee {
         this.addressEmployees = addressEmployees;
     }
 
-    // --- Métodos hashCode, equals y toString para una buena práctica ---
-
-    /**
-     * Genera un valor hash para el objeto Employee.
-     * Basado principalmente en el ID del empleado, ya que es la clave primaria.
-     * @return El valor hash del objeto.
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(id); // Solo el ID es suficiente para un hash único
-    }
-
-    /**
-     * Compara este objeto Employee con otro.
-     * Dos empleados se consideran iguales si tienen el mismo ID.
-     * @param obj El objeto a comparar.
-     * @return true si los objetos son iguales, false en caso contrario.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Employee employee = (Employee) obj;
-        return id == employee.id;
-    }
-
-    /**
-     * Proporciona una representación de cadena del objeto Employee.
-     * Útil para depuración y logging.
-     * @return Una cadena que representa el objeto Employee.
-     */
     @Override
     public String toString() {
         return "Employee{" +
