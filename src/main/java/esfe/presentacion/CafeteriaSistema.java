@@ -1,11 +1,13 @@
 package esfe.presentacion;
 
 import esfe.dominio.Menu;
-import esfe.Persistencia.MenuDAO; // Cambio de 'Persistencia' a 'persistencia' (minúscula)
+import esfe.Persistencia.MenuDAO;
 import esfe.dominio.orden;
-import esfe.Persistencia.OrdenDAO; // Cambio de 'Persistencia' a 'persistencia' (minúscula)
-import esfe.dominio.Employee; // Nueva importación
-import esfe.Persistencia.EmployeeDAO; // Nueva importación
+import esfe.Persistencia.OrdenDAO;
+import esfe.dominio.Employee;
+import esfe.Persistencia.EmployeeDAO;
+import esfe.dominio.Venta;       // Nueva importación
+import esfe.Persistencia.VentaDAO; // Nueva importación
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -16,33 +18,36 @@ import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.format.DateTimeFormatter; // Para formatear la fecha
 
 public class CafeteriaSistema {
     private JTabbedPane tabbedPane1;
-    private JPanel panel1; // Ivan
-    private JPanel Usuario; // Ivan
-    private JPanel Orden; // Ivan
-    private JPanel Venta; // Ivan
-    private JTextField textField1; // Campo para Nombre (Menú) - Ivan
-    private JTextField textField2; // Campo para Precio (Menú) - Ivan
-    private JTextField textField3; // Campo para Categoria (Menú) - Ivan
-    private JTextField textField4; // Campo para Tipo (Menú) - Ivan
-    private JLabel Titulo; // Ivan
-    private JButton crearButton; // Botón "Crear" (Menú) - Ivan
-    private JButton modificarButton; // Botón "Modificar" (Menú) - Ivan
-    private JButton eliminarButton; // Botón "Eliminar" (Menú) - Ivan
-    private JButton buscarButton; // Botón "Buscar" (Menú) - Ivan
-    private JTable table1; // Tu tabla (Menú) - Ivan
-    private JLabel NuevoP; // "Nuevo Producto", vinculado por .form - Ivan
-    private JPanel Nombre; // JPanel "Nombre" (posiblemente un contenedor), vinculado por .form - Ivan
-    private JLabel Precio; // JLabel "Precio", vinculado por .form - Ivan
-    private JLabel Categoria; // JLabel "Categoria", vinculado por .form - Ivan
-    private JLabel Tipo; // JLabel "Tipo", vinculado por .form - Ivan
-    private JPanel JPanel; // Este JPanel tiene un nombre genérico "JPanel", vinculado por .form - Ivan
-    private JLabel menu; // JLabel "Nuestro Menu", vinculado por .form - Ivan
-    private JTextField textField5; // Campo para Buscar (Menú) - Ivan
+    private JPanel panel1; // Ivan - Panel principal
+    private JPanel Usuario; // Ivan - Pestaña de Usuario (Empleados)
+    private JPanel Orden; // Ivan - Pestaña de Orden
+    private JPanel Venta; // Ivan - Pestaña de Venta (¡Este es tu nuevo panel para el formulario de Ventas!)
 
-    // Ocupados por Emily en el formulario de Orden
+    // Componentes de Menú (Ivan)
+    private JTextField textField1; // Campo para Nombre (Menú)
+    private JTextField textField2; // Campo para Precio (Menú)
+    private JTextField textField3; // Campo para Categoria (Menú)
+    private JTextField textField4; // Campo para Tipo (Menú)
+    private JLabel Titulo;
+    private JButton crearButton;
+    private JButton modificarButton;
+    private JButton eliminarButton;
+    private JButton buscarButton;
+    private JTable table1; // Tabla de Menú
+    private JLabel NuevoP;
+    private JPanel Nombre;
+    private JLabel Precio;
+    private JLabel Categoria;
+    private JLabel Tipo;
+    private JPanel JPanel;
+    private JLabel menu;
+    private JTextField textField5; // Campo para Buscar (Menú)
+
+    // Componentes de Orden (Emily)
     private JFormattedTextField OtxtNumorden;
     private JFormattedTextField OtxtUserid;
     private JFormattedTextField OtxtFecha;
@@ -61,22 +66,41 @@ public class CafeteriaSistema {
     private JLabel OlaelTitulo;
     private OrdenDAO ordenDAO; // para Orden
 
-    // Campos y componentes Ocupados por IVAN en el formulario de Empleados
-    private JPanel EmpleadosPanel; // El panel que contiene los controles y la tabla de empleados
-    private JTextField textNombreEm; // Nombre del empleado
-    private JTextField textSalarioEm; // Salario del empleado
-    private JTextField textTelefonoEm; // Teléfono del empleado
-    private JTextField textPosicionEm; // Posición del empleado
-    private JTextField textEmailEm; // Email del empleado (usado como addressEmployees)
-    private JTextField textBuscarEm; // Campo de búsqueda para empleados
-    private JTable JTableEm; // La tabla para mostrar los empleados
-    private JButton buscarButtonEm; // Botón buscar para empleados
-    private JButton crearButtonEm; // Botón crear para empleados
-    private JButton modificarButtonEm; // Botón modificar para empleados
-    private JButton eliminarButtonEm; // Botón eliminar para empleados
+    // Componentes de Empleados (Ivan)
+    private JPanel EmpleadosPanel;
+    private JTextField textNombreEm;
+    private JTextField textSalarioEm;
+    private JTextField textTelefonoEm;
+    private JTextField textPosicionEm;
+    private JTextField textEmailEm;
+    private JTextField textBuscarEm;
+    private JTable JTableEm;
+    private JButton buscarButtonEm;
+    private JButton crearButtonEm;
+    private JButton modificarButtonEm;
+    private JButton eliminarButtonEm;
 
     // Instancia del DAO para Empleados
     private EmployeeDAO employeeDAO = new EmployeeDAO();
+
+    // --- NUEVOS CAMPOS Y COMPONENTES PARA LA SECCIÓN DE VENTAS ---
+    // (Asegúrate de vincular estos en tu archivo .form dentro del JPanel 'Venta')
+    private JTextField textVentaNomProducto; // nomProducto (ID del producto vendido)
+    private JTextField textVentaPrecioProducto; // precioProducto
+    private JTextField textVentaNombreCliente; // nombreCliente
+    private JComboBox<String> comboVentaEstado; // estado (PENDIENTE, ENVIADO, ENTREGADO)
+    private JLabel labelVentaFecha; // fecha (muestra la fecha, se autogenera en create, se carga en select)
+    private JTextField textBuscarVenta; // Campo de búsqueda para ventas por nombre de cliente
+    private JTable JTableVentas; // La tabla para mostrar las ventas
+    private JButton crearButtonVenta; // Botón "Crear Venta"
+    private JButton modificarButtonVenta; // Botón "Modificar Venta"
+    private JButton eliminarButtonVenta; // Botón "Eliminar Venta"
+    private JButton buscarButtonVenta; // Botón "Buscar Venta" (para el campo de búsqueda)
+
+    // Instancia del DAO para Ventas
+    private VentaDAO ventaDAO = new VentaDAO();
+    // Formateador para mostrar y parsear LocalDateTime
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public CafeteriaSistema() {
         // Inicializar la tabla de menús
@@ -87,16 +111,18 @@ public class CafeteriaSistema {
 
         // Inicializar la tabla de órdenes y listeners (código de Emily)
         ordenDAO = new OrdenDAO();
-        initTableOrden(); // Renombrado para evitar conflicto con posibles initTable de empleados
-        initListenersOrden(); // Renombrado
+        initTableOrden();
+        initListenersOrden();
         OtxtFecha.setText(LocalDateTime.now().toString());
 
-        // --- Event Listeners para la sección de Menú (código existente de Ivan) ---
-        // Evento Crear Menú
+        // --- INICIALIZACIÓN Y LISTENERS PARA LA SECCIÓN DE VENTAS (NUEVO) ---
+        initVentasTab(); // Inicializa el JComboBox y la fecha inicial
+        cargarVentas(""); // Cargar todas las ventas al inicio
+
+        // Event Listeners para la sección de Menú (código existente de Ivan)
         crearButton.addActionListener(e -> {
             try {
                 String nombre = textField1.getText();
-                // Validar que el precio sea un número y no esté vacío
                 if (textField2.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "El campo Precio no puede estar vacío.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -105,17 +131,16 @@ public class CafeteriaSistema {
                 String categoria = textField3.getText();
                 String tipo = textField4.getText();
 
-                // Validación de campos de texto no vacíos (excepto precio ya validado como float)
                 if (nombre.isEmpty() || categoria.isEmpty() || tipo.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos de texto (Nombre, Categoría, Tipo) del Menú.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
-                Menu nuevo = new Menu(nombre, precio, categoria, tipo); // Usar el constructor sin codpro
+                Menu nuevo = new Menu(nombre, precio, categoria, tipo);
                 MenuDAO dao = new MenuDAO();
                 dao.create(nuevo);
-                cargarMenus(""); // Recargar tabla
-                limpiarCamposMenus(); // Usar método específico para menús
+                cargarMenus("");
+                limpiarCamposMenus();
                 JOptionPane.showMessageDialog(null, "Producto de Menú creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Error: El precio debe ser un número válido.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
@@ -124,14 +149,12 @@ public class CafeteriaSistema {
             }
         });
 
-        // Evento Modificar Menú
         modificarButton.addActionListener(e -> {
             try {
                 int fila = table1.getSelectedRow();
                 if (fila >= 0) {
-                    int id = (int) table1.getValueAt(fila, 0); // Obtener ID de la fila seleccionada
+                    int id = (int) table1.getValueAt(fila, 0);
                     String nombre = textField1.getText();
-                    // Validar que el precio sea un número y no esté vacío
                     if (textField2.getText().isEmpty()) {
                         JOptionPane.showMessageDialog(null, "El campo Precio no puede estar vacío.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
                         return;
@@ -140,16 +163,15 @@ public class CafeteriaSistema {
                     String categoria = textField3.getText();
                     String tipo = textField4.getText();
 
-                    // Validación de campos de texto no vacíos
                     if (nombre.isEmpty() || categoria.isEmpty() || tipo.isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos de texto (Nombre, Categoría, Tipo) del Menú.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
 
-                    Menu m = new Menu(id, nombre, precio, categoria, tipo); // Usar constructor con codpro
+                    Menu m = new Menu(id, nombre, precio, categoria, tipo);
                     MenuDAO dao = new MenuDAO();
                     dao.update(m);
-                    cargarMenus(""); // Recargar tabla
+                    cargarMenus("");
                     limpiarCamposMenus();
                     JOptionPane.showMessageDialog(null, "Producto de Menú modificado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -162,12 +184,10 @@ public class CafeteriaSistema {
             }
         });
 
-        // Evento Eliminar Menú
         eliminarButton.addActionListener(e -> {
             try {
                 int fila = table1.getSelectedRow();
                 if (fila >= 0) {
-                    // Manejo de casteo de ID
                     Object idObj = table1.getValueAt(fila, 0);
                     int id;
                     if (idObj instanceof Number) {
@@ -182,7 +202,7 @@ public class CafeteriaSistema {
                         m.setCodpro(id);
                         MenuDAO dao = new MenuDAO();
                         dao.delete(m);
-                        cargarMenus(""); // Recargar tabla
+                        cargarMenus("");
                         limpiarCamposMenus();
                         JOptionPane.showMessageDialog(null, "Producto de Menú eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -194,31 +214,25 @@ public class CafeteriaSistema {
             }
         });
 
-        // Evento para seleccionar fila en la tabla de Menú y cargar datos en los JTextFields
         table1.getSelectionModel().addListSelectionListener(e -> {
-            // Este evento puede dispararse múltiples veces. Solo actúa cuando la selección finaliza.
             if (!e.getValueIsAdjusting()) {
                 int fila = table1.getSelectedRow();
                 if (fila >= 0) {
-                    // Asegurarse de que los valores no sean nulos antes de convertirlos a String
-                    textField1.setText(table1.getValueAt(fila, 1) != null ? table1.getValueAt(fila, 1).toString() : ""); // Nombre
-                    textField2.setText(table1.getValueAt(fila, 2) != null ? table1.getValueAt(fila, 2).toString() : ""); // Precio
-                    textField3.setText(table1.getValueAt(fila, 3) != null ? table1.getValueAt(fila, 3).toString() : ""); // Categoría
-                    textField4.setText(table1.getValueAt(fila, 4) != null ? table1.getValueAt(fila, 4).toString() : ""); // Tipo
+                    textField1.setText(table1.getValueAt(fila, 1) != null ? table1.getValueAt(fila, 1).toString() : "");
+                    textField2.setText(table1.getValueAt(fila, 2) != null ? table1.getValueAt(fila, 2).toString() : "");
+                    textField3.setText(table1.getValueAt(fila, 3) != null ? table1.getValueAt(fila, 3).toString() : "");
+                    textField4.setText(table1.getValueAt(fila, 4) != null ? table1.getValueAt(fila, 4).toString() : "");
                 } else {
-                    // Si no hay fila seleccionada (ej. después de eliminar), limpiar campos
                     limpiarCamposMenus();
                 }
             }
         });
 
-        // Evento Buscar Menú (botón explícito)
         buscarButton.addActionListener(e -> {
             String searchTerm = textField5.getText();
             cargarMenus(searchTerm);
         });
 
-        // Evento para búsqueda en tiempo real mientras el usuario escribe en Menú
         textField5.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -228,7 +242,7 @@ public class CafeteriaSistema {
         });
 
 
-        // --- Event Listeners para la sección de Empleados (código CRUD de empleados) ---
+        // Event Listeners para la sección de Empleados (código CRUD de empleados)
         crearButtonEm.addActionListener(e -> crearEmpleado());
         modificarButtonEm.addActionListener(e -> modificarEmpleado());
         eliminarButtonEm.addActionListener(e -> eliminarEmpleado());
@@ -247,8 +261,32 @@ public class CafeteriaSistema {
         });
 
         JTableEm.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) { // Solo actúa cuando la selección finaliza
+            if (!e.getValueIsAdjusting()) {
                 cargarEmpleadoSeleccionado();
+            }
+        });
+
+        // --- LISTENERS PARA LA SECCIÓN DE VENTAS (NUEVO) ---
+        crearButtonVenta.addActionListener(e -> crearVenta());
+        modificarButtonVenta.addActionListener(e -> modificarVenta());
+        eliminarButtonVenta.addActionListener(e -> eliminarVenta());
+
+        buscarButtonVenta.addActionListener(e -> {
+            String searchTerm = textBuscarVenta.getText();
+            cargarVentas(searchTerm);
+        });
+
+        textBuscarVenta.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String searchTerm = textBuscarVenta.getText();
+                cargarVentas(searchTerm);
+            }
+        });
+
+        JTableVentas.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                cargarVentaSeleccionada();
             }
         });
     }
@@ -262,31 +300,27 @@ public class CafeteriaSistema {
     private void cargarMenus(String filter) {
         try {
             MenuDAO dao = new MenuDAO();
-            ArrayList<Menu> lista = dao.search(filter); // Llama al método search de DAO
+            ArrayList<Menu> lista = dao.search(filter);
 
-            // 1. Crea el modelo de tabla
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    return false; // Hace que las celdas de la tabla no sean editables directamente
+                    return false;
                 }
             };
 
-            // 2. Define las columnas
             model.addColumn("ID");
             model.addColumn("Nombre");
             model.addColumn("Precio");
             model.addColumn("Categoría");
             model.addColumn("Tipo");
 
-            // 3. Agrega las filas al modelo
             for (Menu m : lista) {
                 model.addRow(new Object[]{
                         m.getCodpro(), m.getNompro(), m.getPrecio(), m.getCategoria(), m.getTipo()
                 });
             }
 
-            // 4. Asigna el modelo a la tabla
             table1.setModel(model);
 
         } catch (Exception e) {
@@ -298,13 +332,13 @@ public class CafeteriaSistema {
      * Limpia todos los campos de entrada y la selección de la tabla de Menús.
      */
     private void limpiarCamposMenus() {
-        textField1.setText(""); // Nombre
-        textField2.setText(""); // Precio
-        textField3.setText(""); // Categoría
-        textField4.setText(""); // Tipo
-        textField5.setText(""); // Búsqueda
-        table1.clearSelection(); // Limpiar selección de la tabla
-        cargarMenus(""); // Recargar todos los elementos sin filtro para mostrar la lista completa
+        textField1.setText("");
+        textField2.setText("");
+        textField3.setText("");
+        textField4.setText("");
+        textField5.setText("");
+        table1.clearSelection();
+        cargarMenus("");
     }
 
     /**
@@ -315,7 +349,7 @@ public class CafeteriaSistema {
         DefaultTableModel model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Las celdas de la tabla de empleados no son editables
+                return false;
             }
         };
 
@@ -324,7 +358,7 @@ public class CafeteriaSistema {
         model.addColumn("Posición");
         model.addColumn("Salario");
         model.addColumn("Teléfono");
-        model.addColumn("Email"); // Usado como AddressEmployees
+        model.addColumn("Email");
 
         try {
             ArrayList<Employee> lista = employeeDAO.search(filter);
@@ -351,16 +385,14 @@ public class CafeteriaSistema {
         try {
             String nombre = textNombreEm.getText();
             String posicion = textPosicionEm.getText();
-            // Validar que el salario sea un número y no esté vacío
             if (textSalarioEm.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "El campo Salario de Empleado no puede estar vacío.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             double salario = Double.parseDouble(textSalarioEm.getText());
             String telefono = textTelefonoEm.getText();
-            String email = textEmailEm.getText(); // Usado como addressEmployees
+            String email = textEmailEm.getText();
 
-            // Validación de campos de texto no vacíos
             if (nombre.isEmpty() || posicion.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos de texto de Empleado.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
                 return;
@@ -368,7 +400,7 @@ public class CafeteriaSistema {
 
             Employee nuevo = new Employee(nombre, posicion, salario, telefono, email);
             employeeDAO.create(nuevo);
-            cargarEmpleados(""); // Recargar tabla
+            cargarEmpleados("");
             limpiarCamposEmpleados();
             JOptionPane.showMessageDialog(null, "Empleado creado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException ex) {
@@ -391,7 +423,6 @@ public class CafeteriaSistema {
         }
 
         try {
-            // Asegurarse de que el ID sea un número
             Object idObj = JTableEm.getValueAt(fila, 0);
             int id;
             if (idObj instanceof Number) {
@@ -408,9 +439,8 @@ public class CafeteriaSistema {
             }
             double salario = Double.parseDouble(textSalarioEm.getText());
             String telefono = textTelefonoEm.getText();
-            String email = textEmailEm.getText(); // Usado como addressEmployees
+            String email = textEmailEm.getText();
 
-            // Validación de campos de texto no vacíos
             if (nombre.isEmpty() || posicion.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos de texto de Empleado.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
                 return;
@@ -418,7 +448,7 @@ public class CafeteriaSistema {
 
             Employee emp = new Employee(id, nombre, posicion, salario, telefono, email);
             if (employeeDAO.update(emp)) {
-                cargarEmpleados(""); // Recargar tabla
+                cargarEmpleados("");
                 limpiarCamposEmpleados();
                 JOptionPane.showMessageDialog(null, "Empleado modificado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -457,7 +487,7 @@ public class CafeteriaSistema {
                 Employee emp = new Employee();
                 emp.setId(id);
                 if (employeeDAO.delete(emp)) {
-                    cargarEmpleados(""); // Recargar tabla
+                    cargarEmpleados("");
                     limpiarCamposEmpleados();
                     JOptionPane.showMessageDialog(null, "Empleado eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -483,7 +513,6 @@ public class CafeteriaSistema {
             textTelefonoEm.setText(JTableEm.getValueAt(fila, 4) != null ? JTableEm.getValueAt(fila, 4).toString() : "");
             textEmailEm.setText(JTableEm.getValueAt(fila, 5) != null ? JTableEm.getValueAt(fila, 5).toString() : "");
         } else {
-            // Si no hay fila seleccionada (ej. después de eliminar), limpiar campos
             limpiarCamposEmpleados();
         }
     }
@@ -499,7 +528,7 @@ public class CafeteriaSistema {
         textEmailEm.setText("");
         textBuscarEm.setText("");
         JTableEm.clearSelection();
-        cargarEmpleados(""); // Recargar todos los elementos sin filtro
+        cargarEmpleados("");
     }
 
     /**
@@ -507,7 +536,7 @@ public class CafeteriaSistema {
      * @param e La excepción que ocurrió.
      */
     private void mostrarError(Exception e) {
-        e.printStackTrace(); // Imprime la traza de la pila en la consola para depuración
+        e.printStackTrace();
         JOptionPane.showMessageDialog(null, "Ha ocurrido un error: " + e.getMessage(), "Error del Sistema", JOptionPane.ERROR_MESSAGE);
     }
 
@@ -524,18 +553,17 @@ public class CafeteriaSistema {
      * @return El JPanel principal.
      */
     public JPanel getMainPanel() {
-        return panel1; // panel1 ya está enlazado por el diseñador de UI
+        return panel1;
     }
 
     public static void main(String[] args) {
-        // Asegurarse de que las actualizaciones de la GUI se realicen en el Event Dispatch Thread (EDT)
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Sistema de Gestión de Cafetería");
-            CafeteriaSistema sistema = new CafeteriaSistema(); // Instancia la clase
-            frame.setContentPane(sistema.getMainPanel()); // Asigna el panel principal cargado por el .form
+            CafeteriaSistema sistema = new CafeteriaSistema();
+            frame.setContentPane(sistema.getMainPanel());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack(); // Ajusta el tamaño de la ventana al contenido
-            frame.setLocationRelativeTo(null); // Centra la ventana en la pantalla
+            frame.pack();
+            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
     }
@@ -544,7 +572,7 @@ public class CafeteriaSistema {
     private void initTableOrden() {
         tableModel = new DefaultTableModel(new String[]{"ID", "UserID", "Total", "Fecha"}, 0);
         OTblaOrden.setModel(tableModel);
-        cargarDatosOrden(); // Cargar datos al inicializar la tabla de órdenes
+        cargarDatosOrden();
     }
 
     private void initListenersOrden() {
@@ -552,7 +580,6 @@ public class CafeteriaSistema {
 
         ObtnGuardar.addActionListener(e -> {
             try {
-                // Validaciones para campos de Orden
                 if (OtxtUserid.getText().isEmpty() || Otxttotal.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete UserID y Total de la Orden.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -651,7 +678,225 @@ public class CafeteriaSistema {
         OtxtNumorden.setText("");
         OtxtUserid.setText("");
         Otxttotal.setText("");
-        OtxtFecha.setText(LocalDateTime.now().toString()); // Resetear a la fecha actual
-        OTblaOrden.clearSelection(); // Limpiar selección de la tabla de órdenes
+        OtxtFecha.setText(LocalDateTime.now().toString());
+        OTblaOrden.clearSelection();
+    }
+
+    // -------- NUEVOS MÉTODOS PARA LA SECCIÓN DE VENTAS ---------
+    private void initVentasTab() {
+        // Rellenar el JComboBox de Estado
+        comboVentaEstado.addItem("PENDIENTE");
+        comboVentaEstado.addItem("ENVIADO");
+        comboVentaEstado.addItem("ENTREGADO");
+
+        // Establecer la fecha actual en el JLabel al iniciar
+        labelVentaFecha.setText(LocalDateTime.now().format(formatter));
+    }
+
+    /**
+     * Carga las ventas en la tabla, opcionalmente filtradas por el nombre del cliente.
+     * @param filter El término de búsqueda (nombre del cliente). Vacío para cargar todas.
+     */
+    private void cargarVentas(String filter) {
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Las celdas de la tabla de ventas no son editables
+            }
+        };
+
+        model.addColumn("ID Venta");
+        model.addColumn("ID Producto");
+        model.addColumn("Precio Producto");
+        model.addColumn("Nombre Cliente");
+        model.addColumn("Estado");
+        model.addColumn("Fecha");
+
+        try {
+            ArrayList<Venta> lista = ventaDAO.search(filter);
+            for (Venta venta : lista) {
+                model.addRow(new Object[]{
+                        venta.getIdVenta(),
+                        venta.getNomProducto(),
+                        venta.getPrecioProducto(),
+                        venta.getNombreCliente(),
+                        venta.getEstado().trim(), // Limpiar espacios del nchar(10)
+                        venta.getFecha().format(formatter) // Formatear para mostrar
+                });
+            }
+            JTableVentas.setModel(model);
+        } catch (SQLException ex) {
+            mostrarError(ex);
+        }
+    }
+
+    /**
+     * Crea una nueva venta con los datos de los campos de entrada.
+     */
+    private void crearVenta() {
+        try {
+            // Validaciones de campos vacíos
+            if (textVentaNomProducto.getText().isEmpty() || textVentaPrecioProducto.getText().isEmpty() ||
+                    textVentaNombreCliente.getText().isEmpty() || comboVentaEstado.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos (ID Producto, Precio, Cliente, Estado) para crear la Venta.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Parseo de datos y validación de formato numérico
+            int nomProducto = Integer.parseInt(textVentaNomProducto.getText());
+            double precioProducto = Double.parseDouble(textVentaPrecioProducto.getText());
+            String nombreCliente = textVentaNombreCliente.getText();
+            String estado = (String) comboVentaEstado.getSelectedItem();
+            LocalDateTime fecha = LocalDateTime.now(); // La fecha se autogenera al crear
+
+            Venta nuevaVenta = new Venta(nomProducto, precioProducto, nombreCliente, estado, fecha);
+            ventaDAO.create(nuevaVenta);
+            cargarVentas(""); // Recargar tabla
+            limpiarCamposVenta(); // Limpiar campos
+            JOptionPane.showMessageDialog(null, "Venta creada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error: 'ID Producto' y 'Precio Producto' deben ser números válidos.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            mostrarError(ex);
+        } catch (Exception ex) {
+            mostrarError(ex);
+        }
+    }
+
+    /**
+     * Modifica una venta existente con los datos de los campos de entrada.
+     */
+    private void modificarVenta() {
+        int fila = JTableVentas.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila de venta para modificar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            // Validaciones de campos vacíos
+            if (textVentaNomProducto.getText().isEmpty() || textVentaPrecioProducto.getText().isEmpty() ||
+                    textVentaNombreCliente.getText().isEmpty() || comboVentaEstado.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos (ID Producto, Precio, Cliente, Estado) para actualizar la Venta.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Obtener el ID de la venta de la tabla
+            Object idObj = JTableVentas.getValueAt(fila, 0);
+            int idVenta;
+            if (idObj instanceof Number) {
+                idVenta = ((Number) idObj).intValue();
+            } else {
+                idVenta = Integer.parseInt(idObj.toString());
+            }
+
+            // Parseo de datos
+            int nomProducto = Integer.parseInt(textVentaNomProducto.getText());
+            double precioProducto = Double.parseDouble(textVentaPrecioProducto.getText());
+            String nombreCliente = textVentaNombreCliente.getText();
+            String estado = (String) comboVentaEstado.getSelectedItem();
+            // La fecha se toma del JLabel si ya fue cargada, o se regenera si el campo estaba vacío.
+            LocalDateTime fecha = LocalDateTime.parse(labelVentaFecha.getText(), formatter);
+
+            Venta ventaModificada = new Venta(nomProducto, precioProducto, nombreCliente, estado, fecha);
+            ventaModificada.setIdVenta(idVenta); // Importante: Establecer el ID para la actualización
+
+            if (ventaDAO.update(ventaModificada)) {
+                cargarVentas(""); // Recargar tabla
+                limpiarCamposVenta(); // Limpiar campos
+                JOptionPane.showMessageDialog(null, "Venta modificada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo modificar la venta. ID no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error: Los campos numéricos ('ID Producto', 'Precio Producto' o el 'ID Venta' de la tabla) deben ser válidos.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            mostrarError(ex);
+        } catch (Exception ex) {
+            mostrarError(ex);
+        }
+    }
+
+    /**
+     * Elimina una venta seleccionada de la tabla.
+     */
+    private void eliminarVenta() {
+        int fila = JTableVentas.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila de venta para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            // Obtener el ID de la venta de la tabla
+            Object idObj = JTableVentas.getValueAt(fila, 0);
+            int idVenta;
+            if (idObj instanceof Number) {
+                idVenta = ((Number) idObj).intValue();
+            } else {
+                idVenta = Integer.parseInt(idObj.toString());
+            }
+
+            int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar esta venta?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                if (ventaDAO.delete(idVenta)) {
+                    cargarVentas(""); // Recargar tabla
+                    limpiarCamposVenta(); // Limpiar campos
+                    JOptionPane.showMessageDialog(null, "Venta eliminada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo eliminar la venta. ID no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (SQLException ex) {
+            mostrarError(ex);
+        } catch (Exception ex) {
+            mostrarError(ex);
+        }
+    }
+
+    /**
+     * Carga los datos de la venta seleccionada de la tabla en los campos de texto.
+     */
+    private void cargarVentaSeleccionada() {
+        int fila = JTableVentas.getSelectedRow();
+        if (fila >= 0) {
+            // Columna 0 es ID Venta (no se muestra en campo, solo se usa para modificar/eliminar)
+            textVentaNomProducto.setText(JTableVentas.getValueAt(fila, 1) != null ? JTableVentas.getValueAt(fila, 1).toString() : "");
+            textVentaPrecioProducto.setText(JTableVentas.getValueAt(fila, 2) != null ? JTableVentas.getValueAt(fila, 2).toString() : "");
+            textVentaNombreCliente.setText(JTableVentas.getValueAt(fila, 3) != null ? JTableVentas.getValueAt(fila, 3).toString() : "");
+
+            String estadoTabla = JTableVentas.getValueAt(fila, 4) != null ? JTableVentas.getValueAt(fila, 4).toString().trim() : "";
+            // Asegurarse de que el elemento exista en el JComboBox antes de seleccionarlo
+            boolean foundState = false;
+            for (int i = 0; i < comboVentaEstado.getItemCount(); i++) {
+                if (comboVentaEstado.getItemAt(i).equalsIgnoreCase(estadoTabla)) {
+                    comboVentaEstado.setSelectedIndex(i);
+                    foundState = true;
+                    break;
+                }
+            }
+            if (!foundState) { // Si no se encuentra el estado, seleccionar el primero o un valor por defecto
+                comboVentaEstado.setSelectedIndex(0);
+            }
+
+            labelVentaFecha.setText(JTableVentas.getValueAt(fila, 5) != null ? JTableVentas.getValueAt(fila, 5).toString() : "");
+        } else {
+            // Si no hay fila seleccionada (ej. después de eliminar), limpiar campos
+            limpiarCamposVenta();
+        }
+    }
+
+    /**
+     * Limpia todos los campos de entrada y la selección de la tabla de Ventas.
+     */
+    private void limpiarCamposVenta() {
+        textVentaNomProducto.setText("");
+        textVentaPrecioProducto.setText("");
+        textVentaNombreCliente.setText("");
+        comboVentaEstado.setSelectedIndex(0); // Seleccionar el primer elemento (ej. PENDIENTE)
+        labelVentaFecha.setText(LocalDateTime.now().format(formatter)); // Resetear a la fecha actual
+        textBuscarVenta.setText("");
+        JTableVentas.clearSelection();
+        cargarVentas(""); // Recargar todos los elementos sin filtro
     }
 }
