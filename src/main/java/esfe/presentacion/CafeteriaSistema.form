@@ -22,7 +22,9 @@
                 <preferred-size width="200" height="200"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-4950"/>
+            </properties>
             <border type="none"/>
             <children>
               <grid id="ffdee" binding="Usuario" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -39,15 +41,21 @@
                 <constraints>
                   <tabbedpane title="Menu"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-2580113"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <component id="fa7af" class="javax.swing.JLabel" binding="Titulo">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <font size="30"/>
+                      <background color="-5474732"/>
+                      <font name="Cambria" size="36" style="1"/>
+                      <foreground color="-589846"/>
+                      <horizontalAlignment value="0"/>
+                      <horizontalTextPosition value="0"/>
                       <text value="                             Cup of Coffee"/>
                       <verticalAlignment value="0"/>
                     </properties>
@@ -57,7 +65,9 @@
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-4950"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="d43fa" class="javax.swing.JLabel" binding="NuevoP">
@@ -65,7 +75,8 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <font size="20"/>
+                          <font name="Arial Black" size="20"/>
+                          <foreground color="-16316665"/>
                           <text value="Nuevo Producto "/>
                         </properties>
                       </component>
@@ -74,14 +85,18 @@
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <background color="-4950"/>
+                        </properties>
                         <border type="none"/>
                         <children>
                           <component id="5e34d" class="javax.swing.JLabel">
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <font name="Arial Black"/>
+                              <foreground color="-16316665"/>
                               <text value="Nombre"/>
                             </properties>
                           </component>
@@ -103,17 +118,21 @@
                           </component>
                           <component id="40b3c" class="javax.swing.JLabel" binding="Precio">
                             <constraints>
-                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <font name="Arial Black"/>
+                              <foreground color="-16316665"/>
                               <text value="Precio"/>
                             </properties>
                           </component>
                           <component id="20dd0" class="javax.swing.JLabel" binding="Categoria">
                             <constraints>
-                              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <font name="Arial Black"/>
+                              <foreground color="-16316665"/>
                               <text value="Categoria"/>
                             </properties>
                           </component>
@@ -127,9 +146,11 @@
                           </component>
                           <component id="8c59d" class="javax.swing.JLabel" binding="Tipo">
                             <constraints>
-                              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <font name="Arial Black"/>
+                              <foreground color="-16316665"/>
                               <text value="Tipo"/>
                             </properties>
                           </component>
@@ -150,7 +171,9 @@
                     <constraints>
                       <grid row="1" column="1" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-4950"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="aa478" class="javax.swing.JTable" binding="table1" default-binding="true">
@@ -166,7 +189,7 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <background color="-2988"/>
+                          <background color="-4950"/>
                           <text value="Buscar"/>
                         </properties>
                       </component>
@@ -185,7 +208,9 @@
                     <constraints>
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-2580113"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="21881" class="javax.swing.JButton" binding="crearButton" default-binding="true">
@@ -193,7 +218,8 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <background color="-13310639"/>
+                          <background color="-6781"/>
+                          <font name="Arial Black"/>
                           <foreground color="-16382973"/>
                           <text value="Crear"/>
                         </properties>
@@ -203,7 +229,9 @@
                           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <background color="-10901505"/>
+                          <background color="-5999277"/>
+                          <font name="Arial Black"/>
+                          <foreground color="-589846"/>
                           <text value="Modificar"/>
                         </properties>
                       </component>
@@ -212,7 +240,9 @@
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <background color="-1686452"/>
+                          <background color="-3916227"/>
+                          <font name="Arial Black"/>
+                          <foreground color="-589846"/>
                           <text value="Eliminar"/>
                         </properties>
                       </component>
@@ -220,10 +250,11 @@
                   </grid>
                   <component id="46c66" class="javax.swing.JLabel" binding="menu">
                     <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <font size="20"/>
+                      <font name="Century" size="24" style="1"/>
+                      <foreground color="-589846"/>
                       <text value="Nuestro Menu"/>
                     </properties>
                   </component>
@@ -234,7 +265,9 @@
                 <constraints>
                   <tabbedpane title="Orden"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-2377586"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <component id="6937" class="javax.swing.JLabel" binding="OlaelTitulo">
@@ -242,7 +275,8 @@
                       <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <font name="Bahnschrift" size="20" style="1"/>
+                      <font name="Century" size="20" style="1"/>
+                      <foreground color="-589846"/>
                       <text value="GESTION DE ORDENES"/>
                     </properties>
                   </component>
@@ -253,6 +287,7 @@
                       </grid>
                     </constraints>
                     <properties>
+                      <background color="-4950"/>
                       <text value=""/>
                     </properties>
                   </component>
@@ -263,6 +298,7 @@
                       </grid>
                     </constraints>
                     <properties>
+                      <background color="-4950"/>
                       <text value=""/>
                     </properties>
                   </component>
@@ -272,7 +308,9 @@
                         <preferred-size width="150" height="-1"/>
                       </grid>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-4950"/>
+                    </properties>
                   </component>
                   <component id="8bf6f" class="javax.swing.JFormattedTextField" binding="Otxttotal">
                     <constraints>
@@ -280,13 +318,18 @@
                         <preferred-size width="150" height="-1"/>
                       </grid>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-4950"/>
+                    </properties>
                   </component>
                   <component id="9d9b" class="javax.swing.JButton" binding="ObtnEliminar">
                     <constraints>
                       <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-3916227"/>
+                      <font name="Arial Black"/>
+                      <foreground color="-589846"/>
                       <text value="Eliminar"/>
                     </properties>
                   </component>
@@ -295,6 +338,8 @@
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <font name="JetBrains Mono" size="14" style="1"/>
+                      <foreground color="-16316665"/>
                       <text value="numero de orden"/>
                     </properties>
                   </component>
@@ -303,6 +348,8 @@
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <font name="JetBrains Mono" size="14" style="1"/>
+                      <foreground color="-16316665"/>
                       <text value="UserId"/>
                     </properties>
                   </component>
@@ -311,6 +358,8 @@
                       <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <font name="JetBrains Mono" size="14" style="1"/>
+                      <foreground color="-16316665"/>
                       <text value="Fecha"/>
                     </properties>
                   </component>
@@ -319,6 +368,8 @@
                       <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <font name="JetBrains Mono" size="14" style="1"/>
+                      <foreground color="-16316665"/>
                       <text value="Total"/>
                     </properties>
                   </component>
@@ -327,6 +378,9 @@
                       <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-6781"/>
+                      <font name="Arial Black"/>
+                      <foreground color="-16316665"/>
                       <text value="Guardar"/>
                     </properties>
                   </component>
@@ -335,6 +389,9 @@
                       <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-4950"/>
+                      <font name="Arial Black"/>
+                      <foreground color="-16316665"/>
                       <text value="Actualizar"/>
                     </properties>
                   </component>
@@ -351,6 +408,8 @@
                       <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <font name="Cambria" size="20" style="1"/>
+                      <foreground color="-589846"/>
                       <text value="Historial de Ordenes"/>
                     </properties>
                   </component>
@@ -359,6 +418,9 @@
                       <grid row="9" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <background color="-5474732"/>
+                      <font name="Arial Black"/>
+                      <foreground color="-589846"/>
                       <text value="actualizar Ordenes"/>
                     </properties>
                   </component>
