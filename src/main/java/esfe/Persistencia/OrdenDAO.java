@@ -9,11 +9,11 @@ import java.util.List;
 public class OrdenDAO {
 
     // Cadena de conexión a la base de datos SQL Server
-    private static final String STR_CONNECTION = "jdbc:sqlserver://DESKTOP-UKKJ1T9\\SQLEXPRESS01;" +
+    private static final String STR_CONNECTION = "jdbc:sqlserver://EMYLIS\\SQLEXPRESS;" +
             "encrypt=true;" +
             "database=Cafeteria_BD;" +
             "trustServerCertificate=true;" +
-            "user=Java2025;" +
+            "user=java2025;" +
             "password=12345;";
     /**
     /**
